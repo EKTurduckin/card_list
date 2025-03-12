@@ -85,4 +85,5 @@ set = pd.DataFrame.from_dict(battle_box_sets, orient="index",columns=["sets"])
 
 final = pd.concat([sum, set], axis=1)
 final = pd.concat([final, pd.DataFrame(final.index.to_list(), index=final.index, columns=["card", "pitch"])], axis=1)
+final["card"] = final["card"].str.strip()
 final.loc[:,["card","pitch","qty","sets"]].to_csv("card_list.csv", index=False)
