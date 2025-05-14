@@ -1,89 +1,96 @@
-import re
 import requests
+import re
 import pandas as pd
+from pyperclip import paste
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
-def fabrary_list_import(file):
+def import_list_urls(file_name = "decklist_urls.txt"):
+    with open(file_name) as file:
+        return file.readlines()
 
-    with open(file, encoding="utf-8") as file:
-        battle_box = file.read()
+def copy_fabrary_list(url_list):
+    raw_list = []
+    
+    for url in url_list:
+        driver = webdriver.Chrome()
+        driver.get(url)
 
+        driver.implicitly_wait(5)
+
+        click_ellipsis = driver.find_element(By.CLASS_NAME, "css-hczedi")
+        click_ellipsis.click()
+
+        list_to_clipboard = driver.find_element(By.XPATH, './/div[normalize-space()="Copy card list to clipboard"]')
+        list_to_clipboard.click()
+
+        sleep(1)
+
+        driver.quit()
+
+        raw_list.append(paste())
+
+    return r"\n".join(raw_list)
+
+def create_card_list(raw_list):
     card_pattern = re.compile("(\d)x ([^(\n]+)(?:\((\w+)\))?")
 
-    card_list = [[int(count), card, pitch] for count, card, pitch in re.findall(card_pattern, battle_box)]
+    decklist_extract = card_pattern.findall(raw_list)
 
-    for idx, record in enumerate(card_list):
-        if record[2] == '':
-            card_list[idx].append(None)
-        elif record[2] == 'red':
-            card_list[idx].append(int(1))
-        elif record[2] == 'yellow':
-            card_list[idx].append(int(2))
-        elif record[2] == 'blue':
-            card_list[idx].append(int(3))
-            
-    return card_list
-
-def total_cards(import_file):
-    output = {}
-
-    for record in import_file:
-        if not record[2]:
-            pitch = None
-        else:
-            pitch = record[2]
-
-        if (record[1], pitch) not in output:
-            output[(record[1], pitch)] = record[0]
-        else:
-            output[(record[1], pitch)] += record[0]
+    decklist_formatted = [
+        [int(record[0]),
+        record[1].strip(),
+        int(1) if record[2] == 'red' else
+        int(2) if record[2] == 'yellow' else
+        int(3) if record[2] == 'blue' else
+        None
+        ] for record in decklist_extract]
     
-    return output
+    return decklist_formatted
 
-def get_card_library():
-    library = requests.get("https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/refs/heads/develop/json/english/card-flattened.json").json()
-    
-    for card in library:
-        if card["pitch"] == '':
-            card["pitch"] = None
-        else:
-            card["pitch"] = int(card["pitch"])
-    
-    return library
+def aggregate_card(all_cards):
+    def get_card_library():
+        card_sets = {}
+        library = requests.get("https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/refs/heads/develop/json/english/card-flattened.json").json()
 
-def get_sets(import_file):
-    output = {}
+        for record in library:
+            if record["pitch"] == "":
+                record["pitch"] = None
+            else:
+                record["pitch"] = int(record["pitch"])
+
+        set_ids = [(record["name"], record["pitch"], record["set_id"]) for record in library]
+
+        for card in set_ids:
+            if (card[0], card[1]) not in card_sets:
+                card_sets[(card[0], card[1])] = [card[2]]
+            else:
+                if card[2] not in card_sets[(card[0], card[1])]:
+                    card_sets[(card[0], card[1])].append(card[2])
+
+        return card_sets
+    
+    card_agg = {}
     card_library = get_card_library()
 
-    for record in import_file:
-        sets = []
-        for entry in card_library:
-            if record[1].strip() == entry["name"] and record[3] == entry["pitch"]:
-                if entry["set_id"] not in sets:
-                    sets.append(entry["set_id"])
-        
-        if record[3] == 1:
-            pitch = 'red'
-        if record[3] == 2:
-            pitch = 'yellow'
-        if record[3] == 3:
-            pitch = 'blue'
-        if not record[3]:
-            pitch = None
+    for record in all_cards:
+        if (record[1], record[2]) not in card_agg:
+            card_agg[(record[1], record[2])] = {"qty":int(record[0])}
+                
+        else:
+            card_agg[(record[1], record[2])]["qty"] += int(record[0])
 
-        if(record[1], pitch) not in output:
-            output[(record[1], pitch)] = ', '.join(sets)
+    for card, info in card_agg.items():
+        info["sets"]= card_library.get(card)    
 
-    return output
+    return card_agg
 
+decklist_urls = import_list_urls()
+raw_list = copy_fabrary_list(decklist_urls)
+all_cards = create_card_list(raw_list)
+cards_aggregated = aggregate_card(all_cards)
 
-battle_box = fabrary_list_import("Battle Box.txt")
-battle_box_summed = total_cards(battle_box)
-battle_box_sets = get_sets(battle_box)
+export = pd.DataFrame.from_dict(cards_aggregated, orient="index").rename_axis(index=["name","pitch"])
 
-sum = pd.DataFrame.from_dict(battle_box_summed, orient="index",columns=["qty"])
-set = pd.DataFrame.from_dict(battle_box_sets, orient="index",columns=["sets"])
-
-final = pd.concat([sum, set], axis=1)
-final = pd.concat([final, pd.DataFrame(final.index.to_list(), index=final.index, columns=["card", "pitch"])], axis=1)
-final["card"] = final["card"].str.strip()
-final.loc[:,["card","pitch","qty","sets"]].to_csv("card_list.csv", index=False)
+export.to_csv("cards.csv")
