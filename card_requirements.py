@@ -44,33 +44,33 @@ def create_card_list(raw_list):
         int(1) if record[2] == 'red' else
         int(2) if record[2] == 'yellow' else
         int(3) if record[2] == 'blue' else
-        None
+        int(0)
         ] for record in decklist_extract]
     
     return decklist_formatted
 
+def get_card_library():
+    card_sets = {}
+    library = requests.get("https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/refs/heads/high-seas/json/english/card-flattened.json").json()
+
+    for record in library:
+        if record["pitch"] == "":
+            record["pitch"] = 0
+        else:
+            record["pitch"] = int(record["pitch"])
+
+    set_ids = [(record["name"], record["pitch"], record["set_id"]) for record in library]
+
+    for card in set_ids:
+        if (card[0], card[1]) not in card_sets:
+            card_sets[(card[0], card[1])] = [card[2]]
+        else:
+            if card[2] not in card_sets[(card[0], card[1])]:
+                card_sets[(card[0], card[1])].append(card[2])
+
+    return card_sets
+
 def aggregate_card(all_cards):
-    def get_card_library():
-        card_sets = {}
-        library = requests.get("https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/refs/heads/develop/json/english/card-flattened.json").json()
-
-        for record in library:
-            if record["pitch"] == "":
-                record["pitch"] = None
-            else:
-                record["pitch"] = int(record["pitch"])
-
-        set_ids = [(record["name"], record["pitch"], record["set_id"]) for record in library]
-
-        for card in set_ids:
-            if (card[0], card[1]) not in card_sets:
-                card_sets[(card[0], card[1])] = [card[2]]
-            else:
-                if card[2] not in card_sets[(card[0], card[1])]:
-                    card_sets[(card[0], card[1])].append(card[2])
-
-        return card_sets
-    
     card_agg = {}
     card_library = get_card_library()
 
@@ -82,8 +82,8 @@ def aggregate_card(all_cards):
             card_agg[(record[1], record[2])]["qty"] += int(record[0])
 
     for card, info in card_agg.items():
-        info["sets"]= card_library.get(card)    
-
+        info["sets"]= card_library.get(card)
+        
     return card_agg
 
 decklist_urls = import_list_urls()

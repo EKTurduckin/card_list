@@ -1,0 +1,96 @@
+name,pitch,qty,sets
+Barkbone Strapping,0,1,"['1HP', 'RNR', 'WTR']"
+Beaten Trackers,0,1,"['AKO', 'DYN']"
+Blade Beckoner Gauntlets,0,1,['HNT']
+Knucklehead,0,1,"['AKO', 'HVY', 'KYO', 'LGS']"
+Mandible Claw,0,1,"['1HP', 'AKO', 'CRU', 'HVY', 'RHI']"
+Nullrune Gloves,0,1,"['1HP', 'ARC', 'FAB', 'LGS']"
+Nullrune Hood,0,1,"['1HP', 'ARC', 'FAB', 'LGS']"
+Nullrune Robe,0,1,"['1HP', 'ARC', 'FAB', 'LGS']"
+Agile Windup,1,2,"['HVY', 'KYO', 'RHI']"
+Bare Fangs,1,2,"['AKO', 'EVR', 'HVY', 'KYO', 'RHI', 'RVD']"
+Clash of Agility,1,2,"['AKO', 'HVY']"
+Clash of Might,1,2,['HVY']
+Pack Hunt,1,2,"['1HP', 'HVY', 'RHI', 'RNR', 'RVD', 'WTR']"
+Pulping,1,2,"['AKO', 'LGS', 'MON']"
+Reincarnate,1,2,['DYN']
+Savage Feast,1,2,"['1HP', 'RNR', 'WTR']"
+Wild Ride,1,2,"['AKO', 'EVR', 'HVY', 'KYO', 'RVD']"
+Agile Windup,2,2,"['HVY', 'KYO', 'RHI']"
+Bare Fangs,2,2,"['AKO', 'EVR', 'HVY', 'KYO']"
+Clash of Agility,2,2,['HVY']
+Clash of Might,2,2,['HVY']
+Reincarnate,2,2,['DYN']
+Wild Ride,2,2,"['EVR', 'HVY', 'KYO']"
+Agile Windup,3,2,"['AKO', 'HVY', 'KYO']"
+Assault and Battery,3,2,"['AKO', 'HVY', 'RHI']"
+Mighty Windup,3,2,"['AKO', 'HVY', 'KYO', 'VIC']"
+Pound Town,3,1,"['AKO', 'HVY', 'RHI']"
+Reincarnate,3,2,"['AKO', 'DYN']"
+Riled Up,3,2,"['1HP', 'AKO', 'CRU']"
+Run Roughshod,3,2,['AKO']
+Smash Instinct,3,2,"['1HP', 'AKO', 'WTR']"
+Wrecker Romp,3,2,"['1HP', 'AKO', 'FAB', 'LGS', 'RNR', 'RVD', 'WTR']"
+Blade Beckoner Helm,0,2,['HNT']
+Pouncing Paws,0,1,['TCC']
+Sash of Sandikai,0,1,"['FAI', 'UPR']"
+Searing Emberblade,0,1,"['FAB', 'FAI', 'LGS', 'UPR']"
+Spell Fray Gloves,0,1,"['CHN', 'DYN']"
+Spell Fray Tiara,0,1,"['AUR', 'DYN', 'TER']"
+Tearing Shuko,0,1,"['DYN', 'TCC']"
+Tide Flippers,0,1,['UPR']
+Art of the Dragon: Fire,1,1,"['FAB', 'HNT']"
+Blaze Headlong,1,2,"['FAB', 'FAI', 'HNT', 'UPR']"
+Brand with Cinderclaw,1,2,"['FAI', 'UPR']"
+Compounding Anger,1,2,['HNT']
+Display Loyalty,1,2,"['GEM', 'HNT']"
+Drop of Dragon Blood,1,1,['HNT']
+Dust Runner Outlaw,1,2,"['FAI', 'HNT', 'UPR']"
+Fire Tenet: Strike First,1,2,['HNT']
+Hot on Their Heels,1,2,['HNT']
+Lava Burst,1,2,"['DRO', 'UPR']"
+Lava Vein Loyalty,1,2,"['FAI', 'HNT', 'UPR']"
+Mounting Anger,1,2,['UPR']
+Phoenix Flame,1,1,"['FAI', 'LGS', 'UPR']"
+Rake Over the Coals,1,2,"['GEM', 'HNT']"
+Rising Resentment,1,2,['UPR']
+Ronin Renegade,1,2,"['FAI', 'HNT', 'UPR']"
+Scar for a Scar,1,2,"['1HP', 'AGB', 'FAB', 'IRA', 'KAT', 'KSU', 'SEA', 'UPR', 'WTR']"
+Wax On,1,2,['EVR']
+Brand with Cinderclaw,2,1,['UPR']
+Salt the Wound,2,2,"['1HP', 'BEN', 'CRU', 'IRA', 'TCC']"
+Brand with Cinderclaw,3,2,['UPR']
+Cinderskin Devotion,3,2,"['FAI', 'UPR']"
+Dragon Power,3,2,['HNT']
+Lava Vein Loyalty,3,2,"['FAI', 'UPR']"
+Ronin Renegade,3,2,"['FAI', 'UPR']"
+Bloodtorn Bodice,0,1,"['AUA', 'FLR', 'LGS', 'ROS']"
+Crown of Dichotomy,0,1,"['1HP', 'ARC']"
+Nullrune Boots,0,1,"['1HP', 'ARC', 'FAB', 'LGS']"
+Reaping Blade,0,1,"['1HP', 'CRU']"
+Runehold Release,0,1,"['AUA', 'FLR', 'LGS', 'ROS']"
+Sutcliffe's Suede Hides,0,1,"['BRI', 'ELE']"
+Amplify the Arknight,1,2,"['1HP', 'ARC']"
+Arcane Cussing,1,2,"['FLR', 'ROS']"
+Come to Fight,1,2,"['1HP', 'ARC', 'OUT']"
+Condemn to Slaughter,1,2,['ROS']
+Drawn to the Dark Dimension,1,2,['ARC']
+Hit the High Notes,1,2,"['AUA', 'ROS']"
+Hocus Pocus,1,2,['ROS']
+Malefic Incantation,1,2,"['FLR', 'ROS']"
+Minnowism,1,2,['MON']
+Read the Runes,1,2,"['1HP', 'ARC']"
+Reduce to Runechant,1,2,"['1HP', 'ARC', 'LGS']"
+Rune Flash,1,2,"['1HP', 'ARC']"
+Runerager Swarm,1,2,"['AUA', 'FLR', 'LGS', 'ROS']"
+Shrill of Skullform,1,2,['EVR']
+Unmovable,1,2,"['1HP', 'FAB', 'WTR']"
+Malefic Incantation,2,2,['ROS']
+Read the Runes,2,2,"['1HP', 'ARC']"
+Amplify the Arknight,3,2,"['1HP', 'ARC']"
+Condemn to Slaughter,3,2,"['FLR', 'ROS']"
+Hit the High Notes,3,2,"['AUA', 'ROS']"
+Mauvrion Skies,3,2,"['1HP', 'CRU']"
+Runerager Swarm,3,2,['ROS']
+Shrill of Skullform,3,2,['EVR']
+Trot Along,3,2,['HNT']
